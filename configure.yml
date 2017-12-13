@@ -1,0 +1,27 @@
+- name: Configure the Lab
+  hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Build Config Templates
+      template:
+        src: "{{ template_name }}"
+        dest: /var/tmp/{{ inventory_hostname }}.conf
+    - name: Push Cisco Config
+      ios_config:
+        src: /var/tmp/{{ inventory_hostname }}.conf
+        save: yes
+        provider:
+          host: "{{ ansible_host }}"
+          timeout: 300
+          port: 22
+      when: inventory_hostname in groups['cisco_ios']
+    - name: Push Juniper Config
+      junos_config:
+        src: /var/tmp/{{ inventory_hostname }}.conf
+        provider:
+          host: "{{ ansible_host }}"
+          timeout: 300
+      when: inventory_hostname in groups['junos']
+    - name: Remove the config files
+      file: path="/var/tmp/{{ inventory_hostname }}.conf" state=absent

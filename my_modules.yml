@@ -1,0 +1,6 @@
+---
+
+- name: Simple Module PB
+  hosts: local
+  tasks:
+          - ping:

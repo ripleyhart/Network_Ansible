@@ -1,0 +1,7 @@
+---
+- name: Print out Variable
+  hosts: cisco:arista
+  tasks:
+    - debug:
+        msg: "{{ as_number }}"
+
