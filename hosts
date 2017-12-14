@@ -6,14 +6,15 @@ ansible_connection=local
 localhost
 
 [servers]
-azure-meta ansible_host:52.233.41.125
+azure-meta ansible_host=52.233.41.125
 
 [servers:vars]
 ansible_connection=smart
+ansible_user=ubuntu
 
 [cisco]
-CiscoR0 ansible_host=192.168.70.10
-CiscoR1 ansible_host=192.168.70.11
+CiscoR0 ansible_host=172.16.11.10
+CiscoR1 ansible_host=172.16.11.11
 
 [cisco:vars]
 username=root

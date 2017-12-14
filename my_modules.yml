@@ -1,6 +1,15 @@
 ---
 
 - name: Simple Module PB
-  hosts: local
+  hosts: servers
   tasks:
           - ping:
+
+          - debug:
+              msg: Hello World
+          - name: Install Virtualenv
+            pip:
+              name: virtualenv
+              executable: pip3
+              become: yes
+              become_user: root
