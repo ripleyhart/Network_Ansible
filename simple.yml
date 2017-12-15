@@ -1,0 +1,13 @@
+---
+- name: With Testing
+  hosts: local
+  tasks:
+    - name: Test with_items
+      debug:
+        msg: Hello World
+      with_items:
+        - 10.10.10.10
+        - 10.10.20.10
+        - 10.10.30.10
+        - 10.10.40.10
+        - 10.10.50.10        
