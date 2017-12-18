@@ -1,0 +1,32 @@
+---
+- name: NXOS Example
+  hosts: nxos
+  tasks:
+    - name: Configure NEXUS VLANs
+      nxos_vlan:
+        provider: "{{ provider_nxapi }}"
+        vlan_id: "{{ item.vlan_id }}"
+        admin_state: "{{ item.admin_state }}"
+        name: "{{ item.name }}"
+      with_items: "{{ vlans }}"
+
+    - nxos_interface:
+        provider: "{{ provider_nxapi }}"
+        interface: Ethernet2/1
+        admin_state: up
+
+    - nxos_ip_interface:
+        provider: "{{ provider_nxapi }}"
+        interface: Ethernet2/1
+        version: v4
+        addr: "{{ ip_addr }}"
+        mask: 24
+      notify: write mem
+
+  handlers:
+    - name: write mem
+      nxos_command:
+        provider: "{{ provider_ssh }}"
+        commands: copy run start
+      changed_when: True
+      tags: wr_mem
