@@ -1,0 +1,24 @@
+---
+- name: NXOS Ping Example
+  hosts: nxos
+  tasks:
+    - name: Test reachability to next-hop gateway
+      nxos_ping:
+        provider: "{{ provider_nxapi }}"
+        dest: 172.16.11.1
+        vrf: management
+        host: 172.16.11.30
+
+    - nxos_snmp_host:
+        provider: "{{ provider_nxapi }}"
+        snmp_host: 172.16.11.1
+        community: cisco
+      notify: write mem
+
+  handlers:
+    - name: write mem
+      nxos_command:
+        provider: "{{ provider_ssh }}"
+        commands: copy run start
+      changed_when: True
+      tags: wr_mem
