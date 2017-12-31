@@ -1,0 +1,36 @@
+[all:vars]
+#Use localhost to connect to all device as these are all networking
+ansible_connection=local
+
+[local]
+localhost
+
+[servers]
+azure-meta ansible_host=52.233.41.125
+
+[servers:vars]
+ansible_connection=smart
+ansible_user=ubuntu
+
+[cisco]
+CiscoR0 ansible_host=172.16.11.10
+CiscoR1 ansible_host=172.16.11.11
+
+[cisco:vars]
+username=root
+password=Network-Lab
+
+[arista]
+arista_SW1 ansible_host=192.168.70.100
+arista_SW2 ansible_host=192.168.70.101
+
+[arista:vars]
+username=root
+password=Network-Lab
+
+[nxos]
+nxos1 ansible_host=172.16.11.30
+
+[nxos:vars]
+username=cisco
+password=Cisco123

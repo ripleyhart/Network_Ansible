@@ -1,0 +1,17 @@
+---
+- name: IOS Example
+  hosts: cisco
+  vars:
+    creds:
+      host: "{{ ansible_host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  tasks:
+   - ios_facts:
+      provider: "{{ creds }}"
+     tags: facts_only
+
+   - ios_config:
+      provider: "{{ creds }}"
+      src: myconfig-jinja2.txt
+      backup: yes
